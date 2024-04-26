@@ -149,7 +149,7 @@ class FinanceTrackerGUI:
     # When the home button is pressed the search bar clears and the user gets to see all the transactions again.
     def home(self):
         self.display_transactions(self.transactions)
-        self.search_entry.delete(0, "end")
+        self.clear()
 
     def clear(self):
         self.search_entry.delete(0, "end")
