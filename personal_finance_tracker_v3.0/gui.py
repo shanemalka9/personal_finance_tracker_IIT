@@ -159,6 +159,7 @@ class FinanceTrackerGUI:
 
     def clear(self):
         self.search_entry.delete(0, "end")
+        self.search_entry.insert(tk.END, "search")
         self.root.focus_set()# Used to remove focus fom entry.
     
     # *** functions used to add "search" text to entry ***
