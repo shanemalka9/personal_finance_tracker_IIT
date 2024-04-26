@@ -17,6 +17,7 @@ class FinanceTrackerGUI:
         self.transactions = self.load_transactions(file_name)# Loads transactions from "finance.json" to transactions variable.
         # Changed file name from "transactions.json" to "finance.json" to keep consistent with coursework part B.
         self.reverse = False
+        self.placeholder_text = "search"
         # Styles. Used because the use of ttk.
         self.style = ttk.Style()
         self.style.configure("Search.TFrame", background="#F4F3B1")
@@ -63,6 +64,11 @@ class FinanceTrackerGUI:
             # Search Bar.
         self.search_entry = tk.Entry(self.frame_search, justify="right",fg="#1C1C1C", bg="#EEEEEE", font=("Consolas", 10), relief="groove", borderwidth=3)# Create Search bar to enter.
         self.search_entry.grid(row=0, column=0, padx=5, pady=5)
+            # Add "search" text within entry.
+        self.search_entry.insert(tk.END, "search")
+        self.search_entry.bind("<FocusIn>", self.on_entry_focus_in)# Binds event "<FocusIn>" to search_entry so that 'on_entry_focus_in ' function is executed when the entry is the focus(when entry is clicked).
+        self.search_entry.bind("<FocusOut>", self.on_entry_focus_out)# Binds event "<FocusOut>" to search_entry so that 'on_entry_focus_out ' function is executed when the entry  loses focus(when entry is not clicked).| check clear() function
+        
             # Search Button.
         self.search_button = tk.Button(self.frame_search, text="Search",fg="#1C1C1C", bg="#FFFFFF", font=("Arial", 10), relief="groove", width=8, command=self.search_transactions)
         self.search_button.grid(row=0, column=1, padx=5)
@@ -153,7 +159,21 @@ class FinanceTrackerGUI:
 
     def clear(self):
         self.search_entry.delete(0, "end")
+        self.root.focus_set()# Used to remove focus fom entry.
     
+    # *** functions used to add "search" text to entry ***
+    def on_entry_focus_out(self, event):
+        if self.search_entry.get() == '':
+            self.search_entry.insert(0, self.placeholder_text)  # Insert placeholder text if entry is empty
+            self.search_entry.config(fg='grey')  
+    
+    def on_entry_focus_in(self, event):
+        if self.search_entry.get() == self.placeholder_text:# Check if entry text equal to placeholder text.
+            self.search_entry.delete(0, tk.END)  # Clear the placeholder text when focused
+            self.search_entry.config(fg='black')# Change text color back to black.
+    # *** functions used to add "search" text to entry ***
+    
+            
 def main():
     root = tk.Tk()# Creates the main window.
     app = FinanceTrackerGUI(root)# Creates an object called app which passes the main window "root" to the class "FinanceTrackerGUI".
