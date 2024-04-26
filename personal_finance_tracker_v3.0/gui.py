@@ -149,7 +149,7 @@ class FinanceTrackerGUI:
         for index, (val, item) in enumerate(items):# This iterates over the items list and provides both the index and the value of each item in the list.
             self.tree.move(item, '', index)# This line moves the item within the self.tree widget.
         self.tree.heading(col, command=lambda: self.sort_by_column(col, not reverse))
-        
+
     
     # Extra function for "Home" and "Clear" Button.
     # When the home button is pressed the search bar clears and the user gets to see all the transactions again.
