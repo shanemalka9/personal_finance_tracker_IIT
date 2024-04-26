@@ -1,0 +1,229 @@
+BEGIN
+    CREATE global list as transactions
+    
+    BEGIN FUNCTION load()
+        declare transactions list as global
+        IF (file exists) THEN
+            OPENFILE 'finance.json' FOR read AS file
+                LOADFILE file TO transactions
+                CLOSEFILE file
+        ELSE
+            DISPLAY ("File not found. creating new file")
+            CALL save()
+        END IF
+    END FUNCTION
+    
+    
+    BEGIN FUNCTION save()
+        OPENFILE 'finance.json' FOR write as file
+            save transactions list to file
+            CLOSEFILE file
+    END FUNCTION 
+
+
+    BEGIN FUNCTION add()
+        declare transactions list as global
+        temporary = []
+        WHILE (True) DO
+            IF (no errors) THEN
+                FOR i = 0 TO 4 DO
+                    add (CALL FUNCTION prompt(i)) to temporary list
+                END FOR
+                add temporary list to transactions list
+                DISPLAY ("Transaction added successfully")
+                BREAK statement
+            ELSE
+                DISPLAY ("Invalid input")
+                CONTINUE
+            END IF
+            CALL save()
+        END WHILE
+    END FUNCTION
+
+
+    BEGIN FUNCTION view()
+        i = 0
+        FOR entry in transactions DO
+            amount = entry[0]
+            category = entry[1]
+            transaction_type = entry[2]
+            date = entry[3]
+            i = i + 1
+            DISPLAY (i , amount, category, transaction_type, data)
+        END FOR
+    END FUNCTION
+
+    FUNCTION update()
+        declare transactions list as global
+        IF (transactions available in list) THEN
+            CALL view_transactions
+            IF (no errors) THEN
+                GET index_value
+                IF 0 < index_value <= length of the number of sub_lists in global list
+                    temporary = []
+                    WHILE True DO
+                        IF (no errors) THEN
+                            FOR i = 1 TO 4 DO
+                                temporary = CALL prompt(i)
+                            END FOR
+                            transactions[index_value - 1] = temporary
+                            BREAK
+                        ELSE
+                            DISPLAY "Invalid Input."
+                        END IF
+                        save_transactions()
+                    END WHILE
+                ELSE
+                    DISPLAY "Index not valid. Please re-enter."
+                END IF
+            ELSE
+                DISPLAY "Invalid input."
+            END IF
+        ELSE 
+            CALL transaction_availability()
+        END IF
+    END FUNCTION
+
+    FUNCTION delete()
+        declare transactions list as global
+        IF (transactions available in list) THEN
+            CALL view_transactions
+            IF (no errors) THEN
+                GET index_value
+                IF 0 < index_value <= length of the number of sub_lists in global list
+                    remove transactions[index_value - 1]
+                    CALL save()
+                ELSE
+                    DISPLAY "Index not valid. Please re-enter."
+                END IF
+            ELSE
+                DISPLAY "Invalid input."
+            END IF
+        ELSE 
+            CALL transaction_availability()
+        END IF
+    END FUNCTION
+
+    FUNCTION summery()
+        income = 0
+        expense = 0
+        balance = 0
+        FOR entry in transactions DO
+            IF entry[2]  "Income" THEN
+                income = entry[0]
+            ELSE IF entry[2] is equal to "Expense" DO
+                expense = entry[0]
+            END IF 
+            balance = income - expense
+            DISPLAY "Your total income is {income}"
+            DISPLAY "Your total expense is {expense}"
+            DISPLAY "Your financial balance is {balance}"
+        END FOR
+    END FUNCTION
+
+
+    FUNCTION prompt(i)
+        IF i equal to 0 THEN
+            WHILE True DO
+                GET amount
+                IF amount <= 0 THEN
+                    DISPLAY "Enter amount higher than zero."
+                    CONTINUE
+                ELSE
+                    RETURN amount
+                END IF
+            END WHILE
+        ELSE IF i equal to 1 THEN
+            RETURN GET category
+        ELSE IF i equal to 2 THEN
+            WHILE True DO
+                GET type
+                IF type equal to "i" or "income"
+                    RETURN "Income"
+                ELSE IF type equal to "e" or "expense"
+                    RETURN "Expense"
+                ELSE
+                DISPLAY "Invalid Input." 
+            END WHILE
+        ELSE IF i equal to 3 THEN
+            WHILE True DO
+                CREATE temporary list as date
+                months = ((months with 31 days), (months with 30 days), (february))
+                IF (no errors)THEN
+                    GET year
+                    GET month
+                    IF 0 < month <= 12 THEN
+                        BREAK
+                    ELSE
+                        DISPLAY "Invalid month"
+                    END IF
+                    WHILE True DO
+                        GET day 
+                        IF month IN months[0] THEN
+                            IF 0 < day <= 30 THEN
+                                BREAK
+                            ELSE
+                                DISPLAY "Invalid day"
+                                CONTINUE
+                            END IF
+                        ELSE IF month IN months[1] THEN
+                            IF 0 < day <= 31 THEN
+                                BREAK
+                            ELSE
+                                DISPLAY "Invalid day"
+                                CONTINUE
+                            END IF
+                        ELSE IF month IN months[2] THEN
+                            IF 0 < day <= 28 THEN
+                                BREAK
+                            ELSE
+                                DISPLAY "Invalid day"
+                                CONTINUE
+                            END IF
+                        END IF
+                    END WHILE
+                    APPEND year to date list
+                    APPEND month to date list
+                    APPEND day to date list
+                    RETURN date
+                ELSE
+                    DISPLAY "Enter a number."
+                    CONTINUE
+                END IF
+            END WHILE
+        END IF
+    END FUNCTION
+
+
+
+    FUNCTION main():
+        CALL load 
+        display menu
+        GET input
+        while True do
+            if input is equal to 1 then
+                CALL add() 
+            
+            else if input is equal to 2 then
+                CALL view()
+            
+            else if input is equal to 3 then
+                CALL update()
+            
+            else if input is equal to 4 then
+                CALL delete()
+            
+            else if input is equal to 5 then
+                CALL summery()
+            
+            else if input is equal to 6 then
+                display "Exiting program"
+                BREAK loop
+            
+            else do
+                display "Invalid choice. Please try again"
+            END if
+        END while   
+    END FUNCTION
+    
+END

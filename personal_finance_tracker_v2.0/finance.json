@@ -1,0 +1,86 @@
+{
+    "Groceries": [
+        {
+            "amount": -150.0,
+            "date": "2024-02-03"
+        },
+        {
+            "amount": -75.0,
+            "date": "2024-02-15"
+        },
+        {
+            "amount": -800.0,
+            "date": "2024-05-08"
+        }
+    ],
+    "Salary": [
+        {
+            "amount": 1000.0,
+            "date": "2024-02-01"
+        },
+        {
+            "amount": 500.0,
+            "date": "2024-05-05"
+        }
+    ],
+    "Bills": [
+        {
+            "amount": -1000.0,
+            "date": "2024-05-06"
+        }
+    ],
+    "Rent": [
+        {
+            "amount": -1500.0,
+            "date": "2024-05-07"
+        }
+    ],
+    "Utilities": [
+        {
+            "amount": -1200.0,
+            "date": "2024-05-09"
+        }
+    ],
+    "Internet": [
+        {
+            "amount": -600.0,
+            "date": "2024-05-10"
+        }
+    ],
+    "Transportation": [
+        {
+            "amount": -500.0,
+            "date": "2024-05-11"
+        }
+    ],
+    "Entertainment": [
+        {
+            "amount": -1000.0,
+            "date": "2024-05-12"
+        }
+    ],
+    "Medical": [
+        {
+            "amount": -900.0,
+            "date": "2024-05-13"
+        }
+    ],
+    "Medical supplies": [
+        {
+            "amount": -1200.0,
+            "date": "2024-05-14"
+        }
+    ],
+    "Dining": [
+        {
+            "amount": -750.0,
+            "date": "2024-05-15"
+        }
+    ],
+    "Pocket money": [
+        {
+            "amount": 800.0,
+            "date": "2024-05-16"
+        }
+    ]
+}
