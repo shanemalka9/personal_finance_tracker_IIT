@@ -150,9 +150,13 @@ def add_transaction():
         
 # Function to view all transactions
 def view_transactions(flag = False):
+    
+    # *** coursework part c additions ***
     if flag:
         gui.main()
     else:
+    # *** coursework part c additions ***
+    
         if not transactions: # Check if there are transactions available.
             transaction_availability("view")
         else:
@@ -462,7 +466,7 @@ def main_menu():
         if choice == '1':
             add_transaction()
         elif choice == '2':
-            view_transactions(True)
+            view_transactions(True)# *** coursework part c additions ***
         elif choice == '3':
             update_transaction()
         elif choice == '4':
