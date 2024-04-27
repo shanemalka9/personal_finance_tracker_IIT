@@ -149,18 +149,20 @@ class FinanceTrackerGUI:
         for index, (val, item) in enumerate(items):# This iterates over the items list and provides both the index and the value of each item in the list.
             self.tree.move(item, '', index)# This line moves the item within the self.tree widget.
         self.tree.heading(col, command=lambda: self.sort_by_column(col, not reverse))
-
+        
     
     # Extra function for "Home" and "Clear" Button.
     # When the home button is pressed the search bar clears and the user gets to see all the transactions again.
     def home(self):
         self.display_transactions(self.transactions)
         self.clear()
+        self.search_entry.insert(tk.END, "search")
+        self.root.focus_set()# Used to remove focus fom entry.
 
     def clear(self):
         self.search_entry.delete(0, "end")
-        self.search_entry.insert(tk.END, "search")
-        self.root.focus_set()# Used to remove focus fom entry.
+        self.search_entry.focus_set()
+        
     
     # *** functions used to add "search" text to entry ***
     def on_entry_focus_out(self, event):
