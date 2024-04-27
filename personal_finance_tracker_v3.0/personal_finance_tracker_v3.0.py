@@ -1,7 +1,7 @@
 # Name: Ambagahage Shan Emalka Fernando
 # Student_number: 20233126 / w2082285
 
-import gui
+import view_transactions_gui
 import json
 from datetime import datetime# Used specifically for the "read_bulk_transactions_from_file()" function.
 #Note: Why is this not used in the prompt function? 
@@ -150,13 +150,9 @@ def add_transaction():
         
 # Function to view all transactions
 def view_transactions(flag = False):
-    
-    # *** coursework part c additions ***
     if flag:
-        gui.main()
+        view_transactions_gui.main()
     else:
-    # *** coursework part c additions ***
-    
         if not transactions: # Check if there are transactions available.
             transaction_availability("view")
         else:
@@ -466,7 +462,7 @@ def main_menu():
         if choice == '1':
             add_transaction()
         elif choice == '2':
-            view_transactions(True)# *** coursework part c additions ***
+            view_transactions(True)
         elif choice == '3':
             update_transaction()
         elif choice == '4':
