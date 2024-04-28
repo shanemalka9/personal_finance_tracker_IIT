@@ -149,27 +149,24 @@ def add_transaction():
                 
         
 # Function to view all transactions
-def view_transactions(flag = False):
-    if flag:
-        view_transactions_gui.main()
+def view_transactions():
+    if not transactions: # Check if there are transactions available.
+        transaction_availability("view")
     else:
-        if not transactions: # Check if there are transactions available.
-            transaction_availability("view")
-        else:
-            
-            # *** coursework part B additions *** 
-            for key, value in transactions.items():# Loops and takes the key value pairs in the global dictionary.
-                i = 0# Iterative value used for indexing transactions.
-                message = "Category:"
-                length = len(message)
-                print(f"{message} {key}\n")
-                for entry in value:# Cycles within the list which is the value of the key.
-                    i += 1
-                    # Display transaction details
-                    print(f"{" " * length}>>> Transaction ID: ({i}) <<<\n{(" " * length)+ (" " * 4)}Amount: {abs(entry["amount"])},\n{(" " * length)+ (" " * 4)}Date: {entry["date"]}.\n")
-            # *** coursework part B additions *** 
-            
-            input("<<<Press enter to continue>>>\n")
+        
+        # *** coursework part B additions *** 
+        for key, value in transactions.items():# Loops and takes the key value pairs in the global dictionary.
+            i = 0# Iterative value used for indexing transactions.
+            message = "Category:"
+            length = len(message)
+            print(f"{message} {key}\n")
+            for entry in value:# Cycles within the list which is the value of the key.
+                i += 1
+                # Display transaction details
+                print(f"{" " * length}>>> Transaction ID: ({i}) <<<\n{(" " * length)+ (" " * 4)}Amount: {abs(entry["amount"])},\n{(" " * length)+ (" " * 4)}Date: {entry["date"]}.\n")
+        # *** coursework part B additions *** 
+        
+        input("<<<Press enter to continue>>>\n")
 
 
 
@@ -451,27 +448,32 @@ def main_menu():
         print("========================\n")
         print("1. Add Transaction")
         print("2. View Transactions")
-        print("3. Update Transaction")
-        print("4. Delete Transaction")
-        print("5. Display Summary")
-        print("6. Load bulk transactions")
-        print("7. Exit")
+        print("3. View Transactions in GUI")
+        print("4. Update Transaction")
+        print("5. Delete Transaction")
+        print("6. Display Summary")
+        print("7. Load bulk transactions")
+        print("8. Exit")
         choice = input("Enter your choice: ")
         print("\n")
 
         if choice == '1':
             add_transaction()
         elif choice == '2':
-            view_transactions(True)
+            view_transactions()
+        # *** coursework part C additions ***
         elif choice == '3':
-            update_transaction()
+            view_transactions_gui.main()
+        # *** coursework part C additions ***
         elif choice == '4':
-            delete_transaction()
+            update_transaction()
         elif choice == '5':
-            display_summary()
+            delete_transaction()
         elif choice == '6':
-            read_bulk_transactions_from_file(True)
+            display_summary()
         elif choice == '7':
+            read_bulk_transactions_from_file(True)
+        elif choice == '8':
             print("Exiting program.")
             save_transactions()
             break

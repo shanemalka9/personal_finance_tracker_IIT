@@ -117,7 +117,7 @@ class FinanceTrackerGUI:
         user_input = user_input_original# This statement is used to keep a cpoy of user the origial user input so changes can be reverted.
         
         for entry in self.transactions:# Loop throught the list with all transactions which has dictionary elements.
-            if user_input in entry["category"].lower() or user_input in entry["date"] or user_input in entry["date"].replace("-",""):# if the user_input equal to the value then append the whole entry to the filter_transacions list.
+            if user_input in entry["category"].lower().replace(" ","") or user_input in entry["date"] or user_input in entry["date"].replace("-",""):# if the user_input equal to the value then append the whole entry to the filter_transacions list.
                 filter_transaction.append(entry)
             else:
                 # Try statement to check if the user input is an amount
@@ -131,7 +131,7 @@ class FinanceTrackerGUI:
                     user_input = user_input_original
                 
         if not filter_transaction:# If searched term does not exist an error message is shown.
-                messagebox.showwarning("Transaction does not exist!", "The term you searched does exist.")# Error message if file not found.
+                messagebox.showwarning("Transaction does not exist!", "The term you searched does not exist.")# Error message if file not found.
                 return
                         
         self.display_transactions(filter_transaction)# Displays the searched items.
