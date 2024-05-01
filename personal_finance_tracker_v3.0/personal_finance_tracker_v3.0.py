@@ -390,7 +390,7 @@ def category_id_verification(message):
     while flag:
         user_input_category = input(f"Enter the category of the transaction you would like to {message}: ")# Get user to input the category that needs to be changed.
         user_input_category = user_input_category.replace(" ", "").lower()
-        for key in transactions.keys():
+        for key in transactions.keys():# take keys from global dictionary.
             if user_input_category in key.replace(" ", "").lower():# Check if category key exists within global dictionary
                 temp["category"] = key# If category is available then add it to a temperory dictionary.
                 flag = False
