@@ -386,20 +386,22 @@ def transaction_availability(message):
 # Function to check if user inputs are valid in context of category and ID in said category. Works with update and delete
 def category_id_verification(message):
     temp = {}
-    while True:
+    flag = True
+    while flag:
         user_input_category = input(f"Enter the category of the transaction you would like to {message}: ")# Get user to input the category that needs to be changed.
-        user_input_category = user_input_category.capitalize()
-        if user_input_category in transactions.keys():# Check if category key exists within global dictionary
-            temp["category"] = user_input_category# If category is available then add it to a temperory dictionary.
-            break
-        else:
+        user_input_category = user_input_category.replace(" ", "").lower()
+        for key in transactions.keys():
+            if user_input_category in key.replace(" ", "").lower():# Check if category key exists within global dictionary
+                temp["category"] = key# If category is available then add it to a temperory dictionary.
+                flag = False
+        if flag:
             print(f"\n{user_input_category} category does not exits. Enter valid category!\n")
             continue
 
     while True:
         try:
             user_input_id = int(input(f"\nEnter the ID of the transaction you would like to {message}: "))# Get user to input ID of the relevent element within the category key that needs to be changed.
-            if 0 < user_input_id <= (len(transactions[user_input_category])):# Check if ID is within range of the acceptable IDs.
+            if 0 < user_input_id <= (len(transactions[key])):# Check if ID is within range of the acceptable IDs.
                 temp["id"] = user_input_id# If the ID is within valid range add the ID to the temporary dictionary.
                 break
             else:
